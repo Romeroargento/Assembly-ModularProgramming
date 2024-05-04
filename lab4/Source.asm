@@ -4,11 +4,9 @@
 
 .DATA 
 result DD 10 dup (0.0)
-temp DD ?
-index dd 0
 
 .CODE 
-extern fun_el:near ; объявление внешней функции fun_el 
+extern fun_el:near ; Г®ГЎГєГїГўГ«ГҐГ­ГЁГҐ ГўГ­ГҐГёГ­ГҐГ© ГґГіГ­ГЄГ¶ГЁГЁ fun_el 
 
 public FuncValue 
 FuncValue proc C n:DWORD, x:DWORD
@@ -16,25 +14,25 @@ FuncValue proc C n:DWORD, x:DWORD
 	xor ebx, ebx
 
 loop_start:
-	cmp ebx, ecx; сравнение итерации и размера массива
+	cmp ebx, ecx; Г±Г°Г ГўГ­ГҐГ­ГЁГҐ ГЁГІГҐГ°Г Г¶ГЁГЁ ГЁ Г°Г Г§Г¬ГҐГ°Г  Г¬Г Г±Г±ГЁГўГ 
 	jge endo
 
-	mov edx, dword ptr [eax] ; передача первого элемента массива в edx
-	push ecx ; сохранение размера массива
-	push eax ; сохранение массива
-	push edx ; передача элемента массива в функцию fun_el
+	mov edx, dword ptr [eax] ; ГЇГҐГ°ГҐГ¤Г Г·Г  ГЇГҐГ°ГўГ®ГЈГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ  Г¬Г Г±Г±ГЁГўГ  Гў edx
+	push ecx ; Г±Г®ГµГ°Г Г­ГҐГ­ГЁГҐ Г°Г Г§Г¬ГҐГ°Г  Г¬Г Г±Г±ГЁГўГ 
+	push eax ; Г±Г®ГµГ°Г Г­ГҐГ­ГЁГҐ Г¬Г Г±Г±ГЁГўГ 
+	push edx ; ГЇГҐГ°ГҐГ¤Г Г·Г  ГЅГ«ГҐГ¬ГҐГ­ГІГ  Г¬Г Г±Г±ГЁГўГ  Гў ГґГіГ­ГЄГ¶ГЁГѕ fun_el
 	call fun_el
 	pop edx
 	pop eax
 	pop ecx
-	add eax, 4 ; переход на следующий элемент массива 
-	fstp result[ebx*4] ; передача ответа в массив result
-	inc ebx; увеличение итерации 
+	add eax, 4 ; ГЇГҐГ°ГҐГµГ®Г¤ Г­Г  Г±Г«ГҐГ¤ГіГѕГ№ГЁГ© ГЅГ«ГҐГ¬ГҐГ­ГІ Г¬Г Г±Г±ГЁГўГ  
+	fstp result[ebx*4] ; ГЇГҐГ°ГҐГ¤Г Г·Г  Г®ГІГўГҐГІГ  Гў Г¬Г Г±Г±ГЁГў result
+	inc ebx; ГіГўГҐГ«ГЁГ·ГҐГ­ГЁГҐ ГЁГІГҐГ°Г Г¶ГЁГЁ 
 
 	jmp loop_start
 
 endo:
-	mov eax, offset result ; передача адреса массива result в eax
+	mov eax, offset result ; ГЇГҐГ°ГҐГ¤Г Г·Г  Г Г¤Г°ГҐГ±Г  Г¬Г Г±Г±ГЁГўГ  result Гў eax
 	ret
 	FuncValue endp 
 End 
